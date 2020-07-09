@@ -1,0 +1,50 @@
+
+
+
+<img src="https://usercontents-c.styleshare.io/images/31618712/640x640" width="1650", height="250" >
+<div style="width: auto;
+margin: 0 auto;
+background-color: lightpink;">
+<h1 style="text-align: center;">Detail page</h1>
+
+<h2 style="text-align: center; font-family: 'Lobster';">{{blog.title}}</h2>
+{% if blog.image %}
+<br>
+<div style="text-align: center;"><img src="{{blog.image.url}}"></div>
+{% endif %}
+<br>
+
+<p style="text-align: right;">{{blog.pub_date}}</p>
+<p>{{blog.body}}</p>
+
+<a href="{%url 'edit' blog.id %}">수정하기</a>
+
+<a href="{%url 'delete' blog.id %}">삭제하기</a>
+
+<a href="{%url 'list'%}">list</a>
+<br><P style="color: white; ">좋아요 {{likes}}명</P><br>
+<div style="background-color: white;">
+<hr><br><br><br>
+<h3 style="color: red; ">댓글</h3>
+{% for comment in comments %}
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLC8tc0o2hmQG58Zue0XmPrnHc1KLRGNDNug&usqp=CAU" width="40", height="30" >
+{{comment.author}}   
+<br><p>{{comment.body}}</p>
+<div style="text-align: right;">{{comment.pub_date}}</div>
+<hr>
+{% endfor %}
+
+<br><br>
+<form action="/blog/commenting/{{blog.id}}" method="POST">
+    {% csrf_token %}
+    <input type="text" name='body'>
+    <button type="submit">작성</button>
+</form>
+
+<form action="/blog/like/{{blog.id}}" method="get">
+    <button type="submit">좋아요♥</button>
+</form>
+</div>
+
+
+</div>
